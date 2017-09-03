@@ -1,3 +1,5 @@
+"http://yannesposito.com/Scratch/en/blog/Learn-Vim-Progressively/#
+"http://yannesposito.com/Scratch/en/blog/Vim-as-IDE/
 " Gotta be first
 set nocompatible
 
@@ -60,6 +62,7 @@ Plugin 'kchmck/vim-coffee-script'
 "Plugin 'tpope/vim-liquid'
 "Plugin 'cakebaker/scss-syntax.vim'
 Plugin 'davidhalter/jedi-vim'
+Plugin 'bronson/vim-trailing-whitespace'
 
 call vundle#end()
 
@@ -75,9 +78,12 @@ set hlsearch
 set tw=79   "width of the character used by gd(PEP 8, Python)
 set nowrap
 set fo-=t   "don't automatically wrap text while typing
-set colorcolumn=80
-highlight ColorColumn ctermbg=233
 syntax on
+
+if (exists('+colorcolumn'))
+    set colorcolumn=80
+    highlight ColorColumn ctermbg=9
+endif
 
 set mouse=a
 
@@ -89,11 +95,6 @@ let mapleader = ","
 " We need this for plugins like Syntastic and vim-gitgutter which put symbols
 " in the sign column.
 hi clear SignColumn
-
-" Show whitespace
-" MUST be inserted BEFORE the colorscheme command
-autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
-au InsertLeave * match ExtraWhitespace /\s\+$/
 
 " ----- Plugin-Specific Settings --------------------------------------
 
@@ -131,7 +132,7 @@ let g:airline_theme='solarized'
 
 " ----- jistr/vim-nerdtree-tabs -----
 " Open/close NERDTree Tabs with \t
-nmap <silent> <mapleader>t :NERDTreeTabsToggle<CR>
+nmap <silent> <leader>t :NERDTreeTabsToggle<CR>
 " To have NERDTree always open on startup
 let g:nerdtree_tabs_open_on_console_startup = 1
 
@@ -189,10 +190,10 @@ set wildignore+=*/coverage/*
 noremap K :SuperMan <cword><CR>
 
 " Personal Changes == disable arrow keys in vim
-nnoremap <left> :vertical resize +5<cr> 
-nnoremap <right> :vertical resize -5<cr>
-nnoremap <up> :resize +5<cr>
-nnoremap <down> :resize -5<cr>
+nnoremap <left> :vertical resize +2<cr>
+nnoremap <right> :vertical resize -2<cr>
+nnoremap <up> :resize +2<cr>
+nnoremap <down> :resize -2<cr>
 set ttimeoutlen=0
 
 "Better copy and paste
@@ -302,3 +303,4 @@ inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>
 " mkdir -p ~/.vim/ftplugin
 " wget -O ~/.vim/ftplugin/python_editing.vim http://www.vim.org/scripts/download_script.php?src_id=5492
 set nofoldenable
+
